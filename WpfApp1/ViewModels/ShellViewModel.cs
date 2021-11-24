@@ -19,6 +19,7 @@ namespace WpfApp1.ViewModels
             set
             {
                 _povm = value;
+                NotifyOfPropertyChange(() => Povm);
             }
         }
         private PageTwoViewModel _ptvm;
@@ -31,6 +32,7 @@ namespace WpfApp1.ViewModels
             set
             {
                 _ptvm = value;
+                NotifyOfPropertyChange(() => Ptvm);
             }
         }
 
