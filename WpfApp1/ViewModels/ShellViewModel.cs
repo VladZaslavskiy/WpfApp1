@@ -2,16 +2,31 @@
 
 namespace WpfApp1.ViewModels
 {
-    public class ShellViewModel : Conductor<object>
+    public class ShellViewModel : Screen
     {
-        public void LoadPageOne()
+
+        private readonly SimpleContainer container;
+        private INavigationService navigationService;
+             
+        public PageOneViewModel Povm{ get; set; }
+        public PageTwoViewModel Ptvm { get; set; }
+
+        public ShellViewModel(PageOneViewModel povm, PageTwoViewModel ptvm, SimpleContainer container)
         {
-            ActivateItemAsync(new PageOneViewModel());
+            Povm = povm;
+            Ptvm = ptvm;
+            this.container = container;
         }
 
-        public void LoadPageTwo()
-        {
-            ActivateItemAsync(new PageTwoViewModel());
-        }
+
+        //public void LoadPageOne()
+        //{
+        //    ActivateItemAsync(_povm);
+        //}
+
+        //public void LoadPageTwo()
+        //{
+        //    ActivateItemAsync(_ptvm);
+        //}
     }
 }

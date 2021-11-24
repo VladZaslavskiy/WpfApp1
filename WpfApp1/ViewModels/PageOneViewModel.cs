@@ -7,5 +7,9 @@ namespace WpfApp1.ViewModels
 {
     public class PageOneViewModel : Screen
     {
+        //public PageOneViewModel()
+        //{
+        //    InitializeComponent();
+        //}
     }
 }

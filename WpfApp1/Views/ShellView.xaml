@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1.Views"
+        xmlns:cal="http://www.caliburnproject.org"
+        xmlns:local="clr-namespace:WpfApp1.ViewModels"
         mc:Ignorable="d"
         Title="ShellView" Height="450" Width="800">
     <Grid>
@@ -24,6 +25,7 @@
 
         <Button x:Name="LoadPageOne" Grid.Row="1" Grid.Column="1">First View</Button>
         <Button x:Name="LoadPageTwo" Grid.Row="1" Grid.Column="2">Second View</Button>
-        <ContentControl Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="ActiveItem"/>
+        <ContentControl Grid.Row="2" Grid.Column="1"  cal:View.Model="{Binding Povm}"/>
+        <ContentControl Grid.Row="2" Grid.Column="2"  cal:View.Model="{Binding Ptvm}"/>
     </Grid>
 </Window>
