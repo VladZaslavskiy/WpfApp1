@@ -12,7 +12,25 @@ namespace WpfApp1
     public class ModelAny<TObject> : DynamicObject, INotifyPropertyChanged
         where TObject : class
     {
-        Dictionary<string, object> dictionary = new Dictionary<string, object>();
+        // Dictionary<string, object> dictionary = new Dictionary<string, object>();
+
+        TObject _value;
+        protected virtual TObject GetObjectInstance()
+        {
+            return Activator.CreateInstance<TObject>();
+        }
+        public TObject Value
+        {
+            get
+            {
+                return _value = _value ?? GetObjectInstance(); ;
+            }
+
+            set
+            {
+                _value = value;
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -20,25 +38,13 @@ namespace WpfApp1
         {
             return null;
         }
-        protected bool _validateUnbound = false;
+       // protected bool _validateUnbound = false;
         protected void NotifyOfPropertyChange(string name, bool validate)
         {
-            if (PropertyChanged != null || _validateUnbound)
-            {
-                if (_enabled)
-                    try
-                    {
-                        if (validate)
-                            ValidateProperty(name);
-
-                        if (PropertyChanged != null)
-                            PropertyChanged(this, new PropertyChangedEventArgs(name));
-                    }
-                    catch (Exception ex)
-                    {
-                      // Log.Error(ex);
-                    }
-            }
+            
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(name));            
+                                
         }
 
         public virtual void NotifyOfPropertyChange([CallerMemberName] string name = null)
@@ -57,7 +63,7 @@ namespace WpfApp1
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            dictionary[binder.Name.ToLower()] = value;
+          Value[binder.Name.ToLower()] = _value;
 
             return true;
         }
@@ -65,7 +71,7 @@ namespace WpfApp1
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             string name = binder.Name.ToLower();            
-            return dictionary.TryGetValue(name, out result);
+            return Value.TryGetValue(name, out result);
         }
     }
 }
