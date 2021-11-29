@@ -29,6 +29,7 @@ namespace WpfApp1
             set
             {
                 _value = value;
+                NotifyOfPropertyChange(() => Value);
             }
         }
 
@@ -63,7 +64,7 @@ namespace WpfApp1
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-          Value[binder.Name.ToLower()] = _value;
+          Value[binder.Name] = value;
 
             return true;
         }
