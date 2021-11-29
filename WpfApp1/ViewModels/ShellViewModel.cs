@@ -1,9 +1,10 @@
 ﻿using Caliburn.Micro;
 using System;
+using WpfApp1.Models;
 
 namespace WpfApp1.ViewModels
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : ModelAny<PersonModel>
     {
 
         private readonly SimpleContainer container;
