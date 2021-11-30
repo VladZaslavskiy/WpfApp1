@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Dynamic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -15,6 +17,13 @@ namespace WpfApp1
         // Dictionary<string, object> dictionary = new Dictionary<string, object>();
 
         TObject _value;
+        private readonly PropertyInfo[] _props;
+        public ModelAny(TObject obj)
+        {
+            _value = obj;
+            Type t = typeof(TObject);
+            _props = t.GetProperties();
+        }
         protected virtual TObject GetObjectInstance()
         {
             return Activator.CreateInstance<TObject>();
@@ -64,15 +73,21 @@ namespace WpfApp1
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-          Value[binder.Name] = value;
+            var name = binder.Name;
+
+            var propertyInfo = _props.Single(p => p.Name == name);
+            propertyInfo.SetValue(_value, value); 
 
             return true;
         }
         // получение свойства
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            string name = binder.Name.ToLower();            
-            return Value.TryGetValue(name, out result);
+            var name = binder.Name;
+
+            var propertyInfo = _props.Single(p => p.Name == name);
+            result = propertyInfo.GetValue(_value);
+            return true;
         }
     }
 }
