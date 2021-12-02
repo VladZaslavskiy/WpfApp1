@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Windows;
+using WpfApp1.Models;
 using WpfApp1.ViewModels;
 
 namespace WpfApp1
@@ -24,8 +25,9 @@ namespace WpfApp1
             container.Singleton<IEventAggregator, EventAggregator>();
 
             container.PerRequest<ShellViewModel>();
-            container.PerRequest<PageOneViewModel>();
+            container.PerRequest<PersonViewModel>();
             container.PerRequest<PageTwoViewModel>();
+            container.PerRequest<ISaveToTxtService>();
         }
 
         protected override object GetInstance(Type service, string key)

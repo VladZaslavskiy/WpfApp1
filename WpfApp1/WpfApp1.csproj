@@ -11,4 +11,8 @@
     <PackageReference Include="Caliburn.Micro.Core" Version="4.0.173" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resourses\" />
+  </ItemGroup>
+
 </Project>
