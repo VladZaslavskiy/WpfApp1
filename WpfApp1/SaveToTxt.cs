@@ -12,7 +12,7 @@ namespace WpfApp1
         {
             string path = @"C:\Projects\SimpleNavigation\WpfApp1\WpfApp1\Resourses\Person.txt";
 
-            using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.Default))
+            using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
             {
                 sw.WriteLine(text);
             }

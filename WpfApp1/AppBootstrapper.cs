@@ -27,7 +27,8 @@ namespace WpfApp1
             container.PerRequest<ShellViewModel>();
             container.PerRequest<PersonViewModel>();
             container.PerRequest<PageTwoViewModel>();
-            container.PerRequest<ISaveToTxtService>();
+            container.PerRequest<ISaveToTxtService, SaveToTxt>();
+            container.Singleton<PersonModel>();
         }
 
         protected override object GetInstance(Type service, string key)

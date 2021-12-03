@@ -16,11 +16,11 @@ namespace WpfApp1.Views
     /// <summary>
     /// Interaction logic for PageOneView.xaml
     /// </summary>
-    public partial class PageOneView : UserControl
+    public partial class PersonView : UserControl
     {
-        public PageOneView()
+        public PersonView()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

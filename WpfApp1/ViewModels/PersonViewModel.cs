@@ -8,11 +8,24 @@ namespace WpfApp1.ViewModels
 {
     public class PersonViewModel : ModelAny<PersonModel>        
     {
-        private ISaveToTxtService _txtService;
-        public PersonViewModel(PersonModel model,ISaveToTxtService txtService) : base(model)
+        private readonly ISaveToTxtService _txtService;
+        private readonly PersonModel _personModel;
+        public PersonViewModel(PersonModel model, ISaveToTxtService txtService) : base(model)
         {
             _txtService = txtService;
+            _personModel = model;
         }
-        
+
+        public string FullInfo()
+        {            
+           var fullInfo = $"{_personModel.FirstName} {_personModel.LastName} {_personModel.Salary}" ;
+            return fullInfo;
+        }
+
+        public void Save()
+        {
+            var text = string.Empty;
+            _txtService.SaveToDisc(text);                
+        }
     }
 }

@@ -61,6 +61,7 @@ namespace WpfApp1
         {
             NotifyOfPropertyChange(name, true);
         }
+
         public virtual void NotifyOfPropertyChange<TProperty>(Expression<Func<TProperty>> property)
         {
             NotifyOfPropertyChange(getPropName(property));
@@ -80,7 +81,7 @@ namespace WpfApp1
 
             return true;
         }
-        // получение свойства
+        
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             var name = binder.Name;
