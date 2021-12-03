@@ -16,10 +16,13 @@ namespace WpfApp1.ViewModels
             _personModel = model;
         }
 
-        public string FullInfo()
-        {            
-           var fullInfo = $"{_personModel.FirstName} {_personModel.LastName} {_personModel.Salary}" ;
-            return fullInfo;
+        public string FullInfo
+        {
+            get
+            {
+                return $"{_personModel.FirstName} {_personModel.LastName} {_personModel.Salary}";
+            }
+           
         }
 
         public void Save()

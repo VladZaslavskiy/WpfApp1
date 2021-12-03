@@ -72,6 +72,15 @@ namespace WpfApp1
             return property.GetMemberInfo().Name;
         }
 
+        public override bool TryGetMember(GetMemberBinder binder, out object result)
+        {
+            var name = binder.Name;
+
+            var propertyInfo = _props.Single(p => p.Name == name);
+            result = propertyInfo.GetValue(_value);
+            return true;
+        }
+
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
             var name = binder.Name;
@@ -82,13 +91,6 @@ namespace WpfApp1
             return true;
         }
         
-        public override bool TryGetMember(GetMemberBinder binder, out object result)
-        {
-            var name = binder.Name;
-
-            var propertyInfo = _props.Single(p => p.Name == name);
-            result = propertyInfo.GetValue(_value);
-            return true;
-        }
+        
     }
 }

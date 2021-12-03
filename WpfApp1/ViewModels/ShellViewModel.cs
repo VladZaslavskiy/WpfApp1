@@ -8,7 +8,7 @@ namespace WpfApp1.ViewModels
     {
 
         private readonly SimpleContainer container;
-        private INavigationService navigationService;
+       // private INavigationService navigationService;
 
         private PersonViewModel _povm;
         public PersonViewModel Povm
