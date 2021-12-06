@@ -24,23 +24,23 @@ namespace WpfApp1
             Type t = typeof(TObject);
             _props = t.GetProperties();
         }
-        protected virtual TObject GetObjectInstance()
-        {
-            return Activator.CreateInstance<TObject>();
-        }
-        public TObject Value
-        {
-            get
-            {
-                return _value = _value ?? GetObjectInstance(); ;
-            }
+        //protected virtual TObject GetObjectInstance()
+        //{
+        //    return Activator.CreateInstance<TObject>();
+        //}
+        //public TObject Value
+        //{
+        //    get
+        //    {
+        //        return _value = _value ?? GetObjectInstance(); ;
+        //    }
 
-            set
-            {
-                _value = value;
-                NotifyOfPropertyChange(() => Value);
-            }
-        }
+        //    set
+        //    {
+        //        _value = value;
+        //        NotifyOfPropertyChange(() => Value);
+        //    }
+        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -85,9 +85,9 @@ namespace WpfApp1
         {
             var name = binder.Name;
 
-            var propertyInfo = _props.Single(p => p.Name == name);
-            propertyInfo.SetValue(_value, value); 
-
+            var propertyInfo = _props.Single(p => p.Name == name);            
+            propertyInfo.SetValue(_value, value);
+           // NotifyOfPropertyChange(name);
             return true;
         }
         

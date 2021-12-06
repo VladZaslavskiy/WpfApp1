@@ -10,7 +10,7 @@ namespace WpfApp1
 
         public void SaveToDisc(string text)
         {
-            string path = @"C:\Projects\SimpleNavigation\WpfApp1\WpfApp1\Resourses\Person.txt";
+            string path = @"C:\Projects\SimpleNavigation\WpfApp1\WpfApp1\Resourses\TextFile1.txt";
 
             using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
             {
