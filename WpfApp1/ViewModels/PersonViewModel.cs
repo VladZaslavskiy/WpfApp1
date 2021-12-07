@@ -10,13 +10,12 @@ using System.Windows.Data;
 using WpfApp1.Models;
 
 namespace WpfApp1.ViewModels
-{
-
-    
+{        
     public class PersonViewModel : ModelAny<PersonModel>, INotifyDataErrorInfo
     {
         private readonly ISaveToTxtService _txtService;
         private readonly PersonModel _personModel;
+        
         //public ICanDoEvents a = new ICanDoEvents();
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
         public PersonViewModel(PersonModel model, ISaveToTxtService txtService) : base(model)
@@ -31,10 +30,6 @@ namespace WpfApp1.ViewModels
             };
 
         }
-
-        
-        
-        //private string _fullInfo;
         public string FullInfo
         {
             get {return $"{_personModel.FirstName} {_personModel.LastName} {_personModel.Salary}"; }           
@@ -46,32 +41,44 @@ namespace WpfApp1.ViewModels
             _txtService.SaveToDisc(text);
         }
 
-        public bool HasErrors
+        List<string> err = new List<string>();
+        public bool HasErrors => err.Any();
+
+        public IEnumerable GetErrors([CallerMemberName] string propertyName = null)
         {
-            get
+            var errors = new List<string>();
+
+            if(propertyName == "Salary" || propertyName ==  null)
             {
-                return GetErrors(null).OfType<object>().Any();
+
+                if (_personModel.Salary > 2000)
+                    errors.Add("Salary is too big");
+                bool latin = true;
+                for (int i = 0; i < _personModel.FirstName.Length; i++)
+                {
+                    if (Char.IsDigit(_personModel.FirstName[i]) || (_personModel.FirstName[i] >= 'a' && _personModel.FirstName[i] <= 'z')
+                        || (_personModel.FirstName[i] >= 'A' && _personModel.FirstName[i] <= 'Z'))
+                        latin = false;
+                }
+                for (int i = 0; i < _personModel.LastName.Length; i++)
+                {
+                    if (Char.IsDigit(_personModel.LastName[i]) || (_personModel.LastName[i] >= 'a' && _personModel.LastName[i] <= 'z')
+                        || (_personModel.LastName[i] >= 'A' && _personModel.LastName[i] <= 'Z'))
+                        latin = false;
+                }
+                if (!latin)
+                {
+                    errors.Add("Enter the name in latin letters");
+                    latin = true;
+                }
             }
+            err = errors;
+            return errors;
         }
-
-        
-        public virtual IEnumerable GetErrors([CallerMemberName] string propertyName = null)
+               
+        private void OnErrorsChanged([CallerMemberName] string propertyName = null)
         {
-            return Enumerable.Empty<object>();
-        }
-
-        protected void OnErrorsChanged([CallerMemberName] string propertyName = null)
-        {
-            OnErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));
-        }
-
-        protected virtual void OnErrorsChanged(object sender, DataErrorsChangedEventArgs e)
-        {
-            var handler = ErrorsChanged;
-            if (handler != null)
-            {
-                handler(sender, e);
-            }
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
     }
 }
