@@ -4,12 +4,20 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Controls;
 using Caliburn.Micro;
 
 namespace WpfApp1.Models
 {
     public class PersonModel : INotifyPropertyChanged
     {
+        private readonly ValidationBase _validation;
+        public PersonModel() 
+        {
+            _validation = new ValidationBase();
+        }
+
+
         private string _firstName;
         private string _lastName;
         private int _salary;
@@ -41,6 +49,11 @@ namespace WpfApp1.Models
             set
             {
                 _salary = value;
+                _validation.ClearErrors(nameof(Salary));
+                if (_salary < 0 || _salary > 10000)
+                {
+                    _validation.AddError(nameof(Salary), "Invalid salary. The max product price is 10000.");
+                }
                 NotifyOfPropertyChange(() => Salary);
             }
         }
