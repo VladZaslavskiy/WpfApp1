@@ -11,19 +11,25 @@ using WpfApp1.Models;
 
 namespace WpfApp1.ViewModels
 {        
-    public class PersonViewModel : ModelAny<PersonModel>, INotifyDataErrorInfo
+    public class PersonViewModel : ModelAny<PersonModel>
     {
         private readonly ISaveToTxtService _txtService;
         private readonly PersonModel _personModel;
         
         //public ICanDoEvents a = new ICanDoEvents();
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
         public PersonViewModel(PersonModel model, ISaveToTxtService txtService) : base(model)
         {
             _txtService = txtService;
             _personModel = model;
 
-            
+            AddValidation("Salary", _ => _.Salary > 100 ? "Salary is too big" : string.Empty);
+            AddValidation("Salary", _ => _.Salary > 1000 ? "It is realy too big!" : string.Empty);
+            AddValidation("Salary", _ => _.Salary < 0 ? "Salary is too small" : string.Empty);
+            AddValidation("FirstName", _ => (_.FirstName?.Length).GetValueOrDefault() < 4 
+                                                ? "Must be more then 3 chars" : string.Empty);
+            AddValidation("LastName", _ => (_.LastName?.Length).GetValueOrDefault() < 4
+                                               ? "Must be more then 3 chars" : string.Empty);
+
             model.PropertyChanged += (s, e) =>
             {
                 NotifyOfPropertyChange(() => FullInfo);
@@ -41,44 +47,6 @@ namespace WpfApp1.ViewModels
             _txtService.SaveToDisc(text);
         }
 
-        List<string> err = new List<string>();
-        public bool HasErrors => err.Any();
-
-        public IEnumerable GetErrors([CallerMemberName] string propertyName = null)
-        {
-            var errors = new List<string>();
-
-            if(propertyName == "Salary" || propertyName ==  null)
-            {
-
-                if (_personModel.Salary > 2000)
-                    errors.Add("Salary is too big");
-                bool latin = true;
-                for (int i = 0; i < _personModel.FirstName.Length; i++)
-                {
-                    if (Char.IsDigit(_personModel.FirstName[i]) || (_personModel.FirstName[i] >= 'a' && _personModel.FirstName[i] <= 'z')
-                        || (_personModel.FirstName[i] >= 'A' && _personModel.FirstName[i] <= 'Z'))
-                        latin = false;
-                }
-                for (int i = 0; i < _personModel.LastName.Length; i++)
-                {
-                    if (Char.IsDigit(_personModel.LastName[i]) || (_personModel.LastName[i] >= 'a' && _personModel.LastName[i] <= 'z')
-                        || (_personModel.LastName[i] >= 'A' && _personModel.LastName[i] <= 'Z'))
-                        latin = false;
-                }
-                if (!latin)
-                {
-                    errors.Add("Enter the name in latin letters");
-                    latin = true;
-                }
-            }
-            err = errors;
-            return errors;
-        }
-               
-        private void OnErrorsChanged([CallerMemberName] string propertyName = null)
-        {
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-        }
+        
     }
 }

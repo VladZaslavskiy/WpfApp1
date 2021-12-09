@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Dynamic;
@@ -11,11 +12,9 @@ using System.Text;
 
 namespace WpfApp1
 {
-    public class ModelAny<TObject> : DynamicObject, INotifyPropertyChanged
+    public class ModelAny<TObject> : DynamicObject, INotifyPropertyChanged, INotifyDataErrorInfo
         where TObject : class
     {
-        // Dictionary<string, object> dictionary = new Dictionary<string, object>();
-
         TObject _value;
         private readonly PropertyInfo[] _props;
         public ModelAny(TObject obj)
@@ -24,26 +23,9 @@ namespace WpfApp1
             Type t = typeof(TObject);
             _props = t.GetProperties();
         }
-        //protected virtual TObject GetObjectInstance()
-        //{
-        //    return Activator.CreateInstance<TObject>();
-        //}
-        //public TObject Value
-        //{
-        //    get
-        //    {
-        //        return _value = _value ?? GetObjectInstance(); ;
-        //    }
-
-        //    set
-        //    {
-        //        _value = value;
-        //        NotifyOfPropertyChange(() => Value);
-        //    }
-        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
-
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
         protected virtual IList<string> ValidateProperty(string propName)
         {
             return null;
@@ -90,7 +72,53 @@ namespace WpfApp1
            // NotifyOfPropertyChange(name);
             return true;
         }
-        
-        
+
+        public bool HasErrors => GetErrors(null).OfType<object>().Any();
+
+        //Func<TObject, string> err;
+        private IList<(string propName, Func<TObject, string> validatorFunc)> _validators 
+                                = new List<(string propName, Func<TObject, string> validatorFunc)>();
+
+        public IEnumerable GetErrors([CallerMemberName] string propertyName = null)
+        {
+            var errors = new List<string>();
+
+            //if (_validators != null)
+            foreach (var pair in _validators)
+            {
+                if (propertyName == pair.propName || propertyName == null)
+            errors.Add(pair.validatorFunc.Invoke(_value));
+            }
+            
+            return errors;
+
+
+            //if (propertyName == "Salary" || propertyName == null)
+            //{
+
+            //    if (_personModel.Salary > 2000)
+            //        errors.Add("Salary is too big");
+            //}
+
+            //if ((propertyName == "FirstName" || propertyName == null) && _personModel.FirstName != null)
+            //{
+            //    if (_personModel.FirstName.Count() < 4)
+            //    {
+            //        errors.Add("Name must be longer than 3 chars");
+            //    }
+            //}
+        }
+
+        private void OnErrorsChanged([CallerMemberName] string propertyName = null)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+        }
+
+        protected void AddValidation(string propertyName, Func<TObject, string> func)
+        {
+
+            _validators.Add((propertyName, func));
+        }
+
     }
 }
