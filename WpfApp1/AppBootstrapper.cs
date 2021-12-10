@@ -27,7 +27,7 @@ namespace WpfApp1
             container.PerRequest<ShellViewModel>();
             container.PerRequest<PersonViewModel>();
             container.PerRequest<PageTwoViewModel>();
-            container.PerRequest<ISaveToTxtService, SaveToTxt>();
+            container.PerRequest<ICanSaveService, CanSaveInTxtService>();
             container.Singleton<PersonModel>();
         }
 
