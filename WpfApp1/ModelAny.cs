@@ -69,7 +69,7 @@ namespace WpfApp1
 
             var propertyInfo = _props.Single(p => p.Name == name);            
             propertyInfo.SetValue(_value, value);
-           // NotifyOfPropertyChange(name);
+            OnErrorsChanged(name);
             return true;
         }
 
@@ -87,26 +87,14 @@ namespace WpfApp1
             foreach (var pair in _validators)
             {
                 if (propertyName == pair.propName || propertyName == null)
-            errors.Add(pair.validatorFunc.Invoke(_value));
+                {
+                    string adErr = pair.validatorFunc.Invoke(_value);
+                    if (!string.IsNullOrEmpty(adErr))
+                    errors.Add(adErr);
+                }
             }
             
             return errors;
-
-
-            //if (propertyName == "Salary" || propertyName == null)
-            //{
-
-            //    if (_personModel.Salary > 2000)
-            //        errors.Add("Salary is too big");
-            //}
-
-            //if ((propertyName == "FirstName" || propertyName == null) && _personModel.FirstName != null)
-            //{
-            //    if (_personModel.FirstName.Count() < 4)
-            //    {
-            //        errors.Add("Name must be longer than 3 chars");
-            //    }
-            //}
         }
 
         private void OnErrorsChanged([CallerMemberName] string propertyName = null)
