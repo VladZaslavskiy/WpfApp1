@@ -10,21 +10,21 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <con:StringToIntValueConverter x:Key="StringToIntValueConverter" />
-        <Style TargetType="TextBlock">
+        <Style TargetType="TextBox">
             <Setter Property="Validation.ErrorTemplate" >
-                <Setter.Value>                    
-                        <ControlTemplate>
-                            <StackPanel>
-                                <AdornedElementPlaceholder x:Name="textBox" />
-                                <ItemsControl ItemsSource= "{Binding}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
-                        </ControlTemplate>                    
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="textBox" />
+                            <ItemsControl ItemsSource= "{Binding}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ControlTemplate>
                 </Setter.Value>
             </Setter>            
         </Style>

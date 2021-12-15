@@ -20,7 +20,7 @@ namespace WpfApp1.Views
     {
         public PageTwoView()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

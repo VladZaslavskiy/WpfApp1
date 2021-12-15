@@ -6,25 +6,25 @@
         xmlns:cal="http://www.caliburnproject.org"
         xmlns:local="clr-namespace:WpfApp1.ViewModels"
         mc:Ignorable="d"
-        Title="ShellView" Height="450" Width="800">
+        Title="ShellView" Height="450" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="200*"/>
-            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="300*"/>
+            <ColumnDefinition Width="300*"/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="200*"/>
             <RowDefinition Height="10"/>
 
         </Grid.RowDefinitions>
         
-        <Button x:Name="LoadPageOne" Grid.Row="1" Grid.Column="1">First View</Button>
-        <Button x:Name="LoadPageTwo" Grid.Row="1" Grid.Column="2">Second View</Button>
+        <!--<Button x:Name="LoadPageOne" Grid.Row="1" Grid.Column="1">First View</Button>
+        <Button x:Name="LoadPageTwo" Grid.Row="1" Grid.Column="2">Second View</Button>-->
         <ContentControl Grid.Row="2" Grid.Column="1"  cal:View.Model="{Binding Povm}"/>
         <ContentControl Grid.Row="2" Grid.Column="2"  cal:View.Model="{Binding Ptvm}"/>
     </Grid>
