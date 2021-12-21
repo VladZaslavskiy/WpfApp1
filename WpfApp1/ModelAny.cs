@@ -68,6 +68,7 @@ namespace WpfApp1
             var name = binder.Name;
 
             var propertyInfo = _props.Single(p => p.Name == name);
+            
             propertyInfo.SetValue(_value, value);
             OnErrorsChanged(name);
             return true;

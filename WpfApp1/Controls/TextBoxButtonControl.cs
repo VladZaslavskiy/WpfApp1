@@ -6,7 +6,7 @@ using System.Windows.Controls;
 
 namespace WpfApp1.Controls
 {
-    class TexBoxValidationControl : Control
+    public class TextBoxButtonControl : Control
     {
         public string Text
         {
@@ -19,7 +19,7 @@ namespace WpfApp1.Controls
             (
                 "Text", 
                 typeof(string), 
-                typeof(TexBoxValidationControl),
+                typeof(TextBoxButtonControl),
                 new PropertyMetadata(string.Empty,
                     new PropertyChangedCallback(OnTextChanged))
             );
@@ -31,7 +31,7 @@ namespace WpfApp1.Controls
 
         private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var c = (TexBoxValidationControl)d;
+            var c = (TextBoxButtonControl)d;
             c.Text = e.NewValue?.ToString();
         }
     }

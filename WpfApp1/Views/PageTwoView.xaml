@@ -35,9 +35,9 @@
         <TextBlock Grid.Row="1" Grid.Column="2" FontSize="25">Second name</TextBlock>
         <TextBlock Grid.Row="1" Grid.Column="3" FontSize="25">Selary</TextBlock>
 
-        <st:TexBoxValidationControl Grid.Row="2" Grid.Column="1" FontSize="25" Text="{Binding Path=FirstName}" />
-        <st:TexBoxValidationControl Grid.Row="2" Grid.Column="2" FontSize="25" Text="{Binding Path=LastName}" />
-        <st:TexBoxValidationControl Grid.Row="2" Grid.Column="3" FontSize="25" Text="{Binding Path=Salary}" />
+        <st:TextBoxButtonControl Grid.Row="2" Grid.Column="1" FontSize="25" Text="{Binding Path=FirstName, Mode=TwoWay}"  />
+        <st:TextBoxButtonControl Grid.Row="2" Grid.Column="2" FontSize="25" Text="{Binding Path=LastName, Mode=TwoWay}" />
+        <st:TextBoxButtonControl Grid.Row="2" Grid.Column="3" FontSize="25" Text="{Binding Path=Salary, Mode=TwoWay, Converter={StaticResource StringToIntValueConverter}}" />
 
 
         <TextBlock Text="{Binding Path=FullInfo}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" FontSize="25"></TextBlock>
