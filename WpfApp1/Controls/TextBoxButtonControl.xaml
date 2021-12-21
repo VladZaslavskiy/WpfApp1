@@ -2,32 +2,48 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                     xmlns:Controls="clr-namespace:WpfApp1.Controls">
-    <Style TargetType="{x:Type Controls:TextBoxButtonControl}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Controls:TextBoxButtonControl}">
-                    <StackPanel Orientation="Horizontal"
-                        VerticalAlignment="Stretch">                        
-                        
-                        <TextBox x:Name="TheTextBox"
-                                Text="{Binding Path=Text,
-                                Mode=TwoWay,
-                                RelativeSource={RelativeSource TemplatedParent}}"
-                                Width="100"/>
-                       
-                        <Button x:Name="TheClearButton"
+
+    <ControlTemplate TargetType="{x:Type Controls:TextBoxButtonControl}" x:Key="TextBoxButtonControl">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox            Grid.Column="0"
+                                FontSize="25"
+                                Text="{Binding ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True,
+                Mode=TwoWay, Path=FildText, UpdateSourceTrigger=PropertyChanged,
+                RelativeSource={RelativeSource AncestorType={x:Type Controls:TextBoxButtonControl}}}"/>
+
+            <Button 
+                                Grid.Column="1"
                                 Content="X"
                                 Width="30">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:CallMethodAction MethodName="Clear"
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:CallMethodAction MethodName="Clear"
                                         TargetObject="{Binding RelativeSource={RelativeSource TemplatedParent}}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
-                    </StackPanel>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ValidationTemplate">
+        <StackPanel>
+            <AdornedElementPlaceholder x:Name="UI" />
+            <ItemsControl ItemsSource= "{Binding}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ErrorContent}" Foreground="Red" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type Controls:TextBoxButtonControl}">
+        <Setter Property="Template" Value="{DynamicResource TextBoxButtonControl}"/>
+        <Setter Property="Validation.ErrorTemplate" Value="{DynamicResource ValidationTemplate}"/>
     </Style>
 </ResourceDictionary>

@@ -8,7 +8,7 @@ namespace WpfApp1.Controls
 {
     public class TextBoxButtonControl : Control
     {
-        public string Text
+        public string FildText
         {
             get { return (string)GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
@@ -17,7 +17,7 @@ namespace WpfApp1.Controls
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register
             (
-                "Text", 
+                "FildText", 
                 typeof(string), 
                 typeof(TextBoxButtonControl),
                 new PropertyMetadata(string.Empty,
@@ -26,13 +26,13 @@ namespace WpfApp1.Controls
 
         public void Clear()
         {
-            Text = string.Empty;
+            FildText = string.Empty;
         }
 
         private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var c = (TextBoxButtonControl)d;
-            c.Text = e.NewValue?.ToString();
+            c.FildText = e.NewValue?.ToString();
         }
     }
 }
