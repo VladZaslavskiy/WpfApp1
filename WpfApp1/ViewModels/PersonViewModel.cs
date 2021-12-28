@@ -16,12 +16,12 @@ namespace WpfApp1.ViewModels
 {        
     public class PersonViewModel : ModelAny<PersonModel>
     {
-        private readonly ICanSaveService _txtService;
+        private readonly ICanSaveService _saveService;
         private readonly PersonModel _personModel;
       
         public PersonViewModel(PersonModel model, ICanSaveService txtService) : base(model)
         {
-            _txtService = txtService;
+            _saveService = txtService;
             _personModel = model;
           
             AddValidation("Salary", _ => _.Salary > 100 ? "Salary is too big" : string.Empty);
@@ -72,7 +72,7 @@ namespace WpfApp1.ViewModels
 
             worker.DoWork += (o, ea) =>
             {
-                _txtService.Save(text, token);
+                _saveService.Save(_personModel, token);
             };
             
             worker.RunWorkerCompleted += (o, ea) =>

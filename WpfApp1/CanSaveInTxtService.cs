@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace WpfApp1
 {
-    class CanSaveInTxtService : ICanSaveService
+    class CanSaveInTxtService //: ICanSaveService
     {
         public async Task Save(string text, CancellationToken cancellationToken)
         {

@@ -1,9 +1,11 @@
 ﻿using Caliburn.Micro;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Windows;
+using WpfApp1.Data;
 using WpfApp1.Models;
 using WpfApp1.ViewModels;
 
@@ -27,8 +29,15 @@ namespace WpfApp1
             container.PerRequest<ShellViewModel>();
             container.PerRequest<PersonViewModel>();
             container.PerRequest<PageTwoViewModel>();
-            container.PerRequest<ICanSaveService, CanSaveInTxtService>();
+            container.PerRequest<ICanSaveService, CanSaveInDbService>();
             container.Singleton<PersonModel>();
+            var options = new DbContextOptionsBuilder<AppDbContext>()
+                     //.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=XRaySystem;Integrated Security=True;")
+                     .UseInMemoryDatabase("Db")
+                     .Options;
+            var db = new AppDbContext(options);
+            container.Instance(db);
+           // container.Singleton<AppDbContext>();
         }
 
         protected override object GetInstance(Type service, string key)
