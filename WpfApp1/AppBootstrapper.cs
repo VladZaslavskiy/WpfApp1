@@ -32,7 +32,7 @@ namespace WpfApp1
             container.PerRequest<ICanSaveService, CanSaveInDbService>();
             container.PerRequest<PersonModel>();
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                     .UseSqlServer(@"Server=(localdb)\QUINB016787\SQLEXPRESS;Database=TestDb;Integrated Security=True;")
+                     .UseSqlServer(@"Server=(localdb)\QUINB016787\SQLEXPRESS;Database=TextDb;Integrated Security=True;")
                      //.UseInMemoryDatabase("Db")
                      .Options;
             var db = new AppDbContext(options);
