@@ -30,10 +30,10 @@ namespace WpfApp1
             container.PerRequest<PersonViewModel>();
             container.PerRequest<PageTwoViewModel>();
             container.PerRequest<ICanSaveService, CanSaveInDbService>();
-            container.Singleton<PersonModel>();
+            container.PerRequest<PersonModel>();
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                     //.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=XRaySystem;Integrated Security=True;")
-                     .UseInMemoryDatabase("Db")
+                     .UseSqlServer(@"Server=(localdb)\QUINB016787\SQLEXPRESS;Database=TestDb;Integrated Security=True;")
+                     //.UseInMemoryDatabase("Db")
                      .Options;
             var db = new AppDbContext(options);
             container.Instance(db);
