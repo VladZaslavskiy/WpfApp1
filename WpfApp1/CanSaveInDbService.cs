@@ -18,7 +18,7 @@ namespace WpfApp1
             _db = db;
         }
 
-        public async Task Save(PersonModel personModel, CancellationToken cancellationToken)
+        public void Save(PersonModel personModel)
         {
             var entity = new Person()
             {
@@ -27,7 +27,7 @@ namespace WpfApp1
                 Salary = personModel.Salary,
             };
             _db.Persons.Add(entity);
-            await _db.SaveChangesAsync(cancellationToken);
+            _db.SaveChanges();
         }
     }
 }

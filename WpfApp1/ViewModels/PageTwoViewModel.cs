@@ -61,13 +61,16 @@ namespace WpfApp1.ViewModels
         public void Save(object sender, RoutedEventArgs e)
         {
             BackgroundWorker worker = new BackgroundWorker();
-            CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
-            CancellationToken token = cancelTokenSource.Token;
+            //CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+            //CancellationToken token = cancelTokenSource.Token;
+
+           // _saveService.Save(_personModel, token);
+
             var text = FullInfo;
 
             worker.DoWork += (o, ea) =>
             {
-                _saveService.Save(_personModel, token);
+                _saveService.Save(_personModel);
             };
 
             worker.RunWorkerCompleted += (o, ea) =>

@@ -9,6 +9,6 @@ namespace WpfApp1
 {
     public interface ICanSaveService
     {
-        public Task Save(PersonModel personModel, CancellationToken cancellationToken);
+        public void Save(PersonModel personModel);
     }
 }

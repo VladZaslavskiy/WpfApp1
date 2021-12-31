@@ -8,9 +8,8 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="bootstrapper" />                    
-                </ResourceDictionary>                   
+                </ResourceDictionary>
                 <ResourceDictionary Source="Controls/TextBoxButtonControl.xaml"/>
-                
             </ResourceDictionary.MergedDictionaries>            
         </ResourceDictionary>
     </Application.Resources>

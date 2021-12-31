@@ -72,7 +72,7 @@ namespace WpfApp1.ViewModels
 
             worker.DoWork += (o, ea) =>
             {
-                _saveService.Save(_personModel, token);
+                _saveService.Save(_personModel);
             };
             
             worker.RunWorkerCompleted += (o, ea) =>
