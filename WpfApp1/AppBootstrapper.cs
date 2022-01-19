@@ -34,12 +34,12 @@ namespace WpfApp1
             container.PerRequest<ICanSaveService, CanSaveInDbService>();
             container.PerRequest<IOutFromDbService, OutputtingDbService>();
             container.PerRequest<PersonModel>();
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                     .UseSqlServer(@"Server=QUINB016787\SQLEXPRESS;Database=TextDb;Integrated Security=true;")
-                     //.UseInMemoryDatabase("Db")
-                     .Options;
-            var db = new AppDbContext(options);
-            container.Instance(db);
+            //var options = new DbContextOptionsBuilder<AppDbContext>()
+            //         .UseSqlServer(@"Server=QUINB016787\SQLEXPRESS;Database=TextDb;Integrated Security=true;")
+            //         //.UseInMemoryDatabase("Db")
+            //         .Options;
+            //var db = new AppDbContext(options);
+            //container.Instance(db);
         }
 
         protected override object GetInstance(Type service, string key)
