@@ -26,7 +26,7 @@ namespace WpfApp1
                 LastName = personModel.LastName,
                 Salary = personModel.Salary,
             };
-            _db.Persons.Add(entity);
+            _db.Person.Add(entity);
             _db.SaveChanges();
         }
     }

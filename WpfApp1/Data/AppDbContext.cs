@@ -10,10 +10,10 @@ namespace WpfApp1.Data
     {
         public AppDbContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<Person> Persons { get; set; }
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder.Entity<Person>().HasKey(x => x.Id);
-        }
+        public DbSet<Person> Person { get; set; }
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    builder.Entity<Person>().HasKey(x => x.Id);
+        //}
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows;
 using WpfApp1.Data;
 using WpfApp1.Models;
+using WpfApp1.Services;
 using WpfApp1.ViewModels;
 
 namespace WpfApp1
@@ -29,10 +30,12 @@ namespace WpfApp1
             container.PerRequest<ShellViewModel>();
             container.PerRequest<PersonViewModel>();
             container.PerRequest<PageTwoViewModel>();
+            container.PerRequest<OutputViewModel>();
             container.PerRequest<ICanSaveService, CanSaveInDbService>();
+            container.PerRequest<IOutFromDbService, OutputtingDbService>();
             container.PerRequest<PersonModel>();
             var options = new DbContextOptionsBuilder<AppDbContext>()
-                     .UseSqlServer(@"Server=(localdb)\QUINB016787\SQLEXPRESS;Database=TextDb;Trusted_Connection=True;")
+                     .UseSqlServer(@"Server=QUINB016787\SQLEXPRESS;Database=TextDb;Integrated Security=true;")
                      //.UseInMemoryDatabase("Db")
                      .Options;
             var db = new AppDbContext(options);

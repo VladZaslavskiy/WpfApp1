@@ -25,7 +25,7 @@
         
         <!--<Button x:Name="LoadPageOne" Grid.Row="1" Grid.Column="1">First View</Button>
         <Button x:Name="LoadPageTwo" Grid.Row="1" Grid.Column="2">Second View</Button>-->
-        <ContentControl Grid.Row="2" Grid.Column="1"  cal:View.Model="{Binding Povm}"/>
-        <ContentControl Grid.Row="2" Grid.Column="2"  cal:View.Model="{Binding Ptvm}"/>
+        <ContentControl Grid.Row="2" Grid.Column="2"  cal:View.Model="{Binding OutVM}"/>
+        <ContentControl Grid.Row="2" Grid.Column="1"  cal:View.Model="{Binding Ptvm}"/>
     </Grid>
 </Window>
