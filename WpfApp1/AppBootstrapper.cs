@@ -33,6 +33,7 @@ namespace WpfApp1
             container.PerRequest<OutputViewModel>();
             container.PerRequest<ICanSaveService, CanSaveInDbService>();
             container.PerRequest<IOutFromDbService, OutputtingDbService>();
+            container.Singleton<IDbManagerFactory, DbManagerFactory>();
             container.PerRequest<PersonModel>();
             //var options = new DbContextOptionsBuilder<AppDbContext>()
             //         .UseSqlServer(@"Server=QUINB016787\SQLEXPRESS;Database=TextDb;Integrated Security=true;")
